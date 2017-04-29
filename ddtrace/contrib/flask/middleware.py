@@ -59,17 +59,6 @@ class TraceMiddleware(object):
             self.app.before_request(self._before_request)
             self.app.after_request(self._after_request)
 
-        # Instrument template rendering. If it's flask >= 0.11, we can use
-        # signals, Otherwise we have to patch a global method.
-        template_signals = {
-            'before_render_template': self._template_started,  # added in 0.11
-            'template_rendered': self._template_done
-        }
-        if self.use_signals and _signals_exist(template_signals):
-            self._connect(template_signals)
-        else:
-            _patch_render(tracer)
-
     def _flask_signals_exist(self, names):
         """ Return true if the current version of flask has all of the given
             signals.
