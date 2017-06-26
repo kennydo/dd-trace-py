@@ -142,13 +142,13 @@ class HTTPLibTestCase(HTTPLibBaseMixin, unittest.TestCase):
         self.assertIsNone(span.service)
         self.assertEqual(span.name, self.SPAN_NAME)
         self.assertEqual(span.error, 0)
-        self.assertDictEqual(
-            span.meta,
+        self.assertDictContainsSubset(
             {
                 'http.method': 'GET',
                 'http.status_code': '200',
                 'http.url': 'http://httpstat.us/200',
-            }
+            },
+            span.meta
         )
 
     def test_httplib_request_get_request_https(self):
@@ -172,13 +172,13 @@ class HTTPLibTestCase(HTTPLibBaseMixin, unittest.TestCase):
         self.assertIsNone(span.service)
         self.assertEqual(span.name, self.SPAN_NAME)
         self.assertEqual(span.error, 0)
-        self.assertDictEqual(
-            span.meta,
+        self.assertDictContainsSubsetl(
             {
                 'http.method': 'GET',
                 'http.status_code': '200',
                 'http.url': 'https://httpbin.org/status/200',
-            }
+            },
+            span.meta
         )
 
     def test_httplib_request_post_request(self):
@@ -201,13 +201,13 @@ class HTTPLibTestCase(HTTPLibBaseMixin, unittest.TestCase):
         self.assertIsNone(span.service)
         self.assertEqual(span.name, self.SPAN_NAME)
         self.assertEqual(span.error, 0)
-        self.assertDictEqual(
-            span.meta,
+        self.assertDictContainsSubset(
             {
                 'http.method': 'POST',
                 'http.status_code': '200',
                 'http.url': 'http://httpstat.us/200',
-            }
+            },
+            span.meta
         )
 
     def test_httplib_request_get_request_query_string(self):
@@ -229,13 +229,13 @@ class HTTPLibTestCase(HTTPLibBaseMixin, unittest.TestCase):
         self.assertIsNone(span.service)
         self.assertEqual(span.name, self.SPAN_NAME)
         self.assertEqual(span.error, 0)
-        self.assertDictEqual(
-            span.meta,
+        self.assertDictContainsSubset(
             {
                 'http.method': 'GET',
                 'http.status_code': '200',
                 'http.url': 'http://httpstat.us/200?key=value&key2=value2',
-            }
+            },
+            span.meta
         )
 
     def test_httplib_request_500_request(self):
