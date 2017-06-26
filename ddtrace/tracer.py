@@ -1,6 +1,7 @@
 import functools
 import logging
 
+from .ext import system
 from .provider import DefaultContextProvider
 from .context import Context
 from .sampler import AllSampler
@@ -158,7 +159,7 @@ class Tracer(object):
                 resource=resource,
                 span_type=span_type,
             )
-            span.set_pid(getpid())
+            span.set_tag(system.PID, getpid())
             self.sampler.sample(span)
 
         # add common tags
